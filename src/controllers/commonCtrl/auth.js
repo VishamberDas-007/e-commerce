@@ -22,8 +22,10 @@ const admin = require("../../firebase/service");
 exports.signUp = async (req) => {
 	try {
 		const userDetails = {
-			phoneNumber: req.body.phoneNumber,
-			name: req.body.name,
+			email: req.body.email,
+			contactNumber: req.body.contactNumber,
+			uidNumber: req.body.uidNumber,
+			country: req.body.country,
 		};
 		console.log(userDetails);
 
@@ -32,12 +34,20 @@ exports.signUp = async (req) => {
 		}
 		console.log("before123");
 		await db.users.create({
-			phoneNumber: userDetails.phoneNumber,
-			name: userDetails.name,
+			email: userDetails.email,
+			contactNumber: userDetails.contactNumber,
+			uidNumber: userDetails.uidNumber,
+			country: userDetails.country,
 		});
 		console.log("123");
-		response.successResponse("User registered successfully!!", userDetails);
+		return response.successResponse(
+			"User registered successfully!!",
+			userDetails
+		);
 	} catch (error) {
-		response.errorResponse("Error occurred while filling details", error);
+		return response.errorResponse(
+			"Error occurred while filling details",
+			error
+		);
 	}
 };

@@ -8,7 +8,11 @@ module.exports = {
 				primaryKey: true,
 				type: Sequelize.INTEGER(11),
 			},
-			name: {
+			firstName: {
+				allowNull: true,
+				type: Sequelize.STRING(60),
+			},
+			lastName: {
 				allowNull: true,
 				type: Sequelize.STRING(60),
 			},
@@ -25,6 +29,15 @@ module.exports = {
 				allowNull: false,
 				type: Sequelize.STRING(15),
 				unique: true,
+			},
+			uidNumber: {
+				allowNull: false,
+				type: Sequelize.STRING(128),
+				unique: true,
+			},
+			country: {
+				allowNull: false,
+				type: Sequelize.STRING(15),
 			},
 			status: {
 				type: Sequelize.ENUM("Active", "Inactive"),
