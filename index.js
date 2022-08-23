@@ -1,10 +1,10 @@
-const express = require("express");
-const expressApp = express();
-const bodyParser = require("body-parser");
-const config = require("./config/config.json");
-expressApp.use(bodyParser.json());
-expressApp.use(bodyParser.urlencoded({ extended: true }));
-const db = require("./models/index");
+const express = require("express"); // importing the express package
+const expressApp = express(); // initializing the express function
+const bodyParser = require("body-parser"); // importing body-parser package
+const config = require("./config/config.json"); // importing config
+expressApp.use(bodyParser.json()); // parses the json format
+expressApp.use(bodyParser.urlencoded({ extended: true })); // enhances to get the urlencoded requests
+const db = require("./models/index"); // importing the db from models
 
 //routes
 expressApp.use("/api", require("./src/routes/index"));

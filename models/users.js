@@ -2,30 +2,25 @@
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
 	class users extends Model {
-		/**
-		 * Helper method for defining associations.
-		 * This method is not a part of Sequelize lifecycle.
-		 * The `models/index` file will call this method automatically.
-		 */
 		static associate(models) {
 			// define association here
 		}
 	}
 	users.init(
 		{
-			firstName: DataTypes.STRING(60),
-			lastName: DataTypes.STRING(60),
-			email: DataTypes.STRING(255),
-			address: DataTypes.STRING(255),
-			contactNumber: DataTypes.STRING(15),
-			uidNumber: DataTypes.STRING(128),
-			country: DataTypes.STRING(15),
-			status: DataTypes.ENUM("Active", "Inactive"),
+			firstName: DataTypes.STRING(60), // first name of user
+			lastName: DataTypes.STRING(60), // user's last name
+			email: DataTypes.STRING(255), // user's email id
+			address: DataTypes.STRING(255), // user's address
+			contactNumber: DataTypes.STRING(15), // contact number of the user
+			uidNumber: DataTypes.STRING(128), // unique id as per firebase
+			country: DataTypes.STRING(15), // country origin of the user
+			status: DataTypes.ENUM("Active", "Inactive"), // current status of the user
 		},
 		{
 			sequelize,
-			modelName: "users",
+			modelName: "users", // model name
 		}
 	);
-	return users;
+	return users; // returning the users
 };

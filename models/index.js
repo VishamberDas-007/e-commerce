@@ -1,13 +1,14 @@
 "use strict";
-
+// index file of the models folder
 const fs = require("fs");
 const path = require("path");
 const Sequelize = require("sequelize");
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || "development";
-const config = require(__dirname + "/../config/config.json")[env];
-const db = {};
+const config = require(__dirname + "/../config/config.json")[env]; // requiring the config
+const db = {}; // creating an empty object
 
+// initializing sequelize and providing the configurations
 const sequelize = new Sequelize(
 	config.database,
 	config.username,
@@ -35,10 +36,10 @@ Object.keys(db).forEach((modelName) => {
 	}
 });
 
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
-db.users = require("./user")(sequelize, Sequelize);
-db.roles = require("./roles")(sequelize, Sequelize);
-db.userHasRole = require("./userhasrole")(sequelize, Sequelize);
+db.sequelize = sequelize; // initializing the constant possessing configuration setup
+db.Sequelize = Sequelize; // initializing the imported sequelize
+db.users = require("./user")(sequelize, Sequelize); // importing the users model
+db.roles = require("./roles")(sequelize, Sequelize); // importing the roles model
+db.userHasRole = require("./userhasrole")(sequelize, Sequelize); // importing the userHasRole model
 
-module.exports = db;
+module.exports = db; // exporting the db

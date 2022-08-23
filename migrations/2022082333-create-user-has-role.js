@@ -1,14 +1,17 @@
 "use strict";
+// migration of the userHasRole table
 module.exports = {
 	async up(queryInterface, Sequelize) {
 		await queryInterface.createTable("userHasRoles", {
 			id: {
+				// uniquely defines the user with their respective role in this table
 				allowNull: false,
 				autoIncrement: true,
 				primaryKey: true,
 				type: Sequelize.INTEGER,
 			},
 			roleID: {
+				// A foreign key from roles table
 				type: Sequelize.INTEGER(11),
 				allowNull: false,
 				references: {
@@ -19,6 +22,7 @@ module.exports = {
 				onDelete: "CASCADE",
 			},
 			userID: {
+				// A foreign key from users table
 				type: Sequelize.INTEGER(11),
 				allowNull: false,
 				references: {
