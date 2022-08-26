@@ -38,8 +38,9 @@ Object.keys(db).forEach((modelName) => {
 
 db.sequelize = sequelize; // initializing the constant possessing configuration setup
 db.Sequelize = Sequelize; // initializing the imported sequelize
-db.users = require("./user")(sequelize, Sequelize); // importing the users model
+db.users = require("./users")(sequelize, Sequelize); // importing the users model
 db.roles = require("./roles")(sequelize, Sequelize); // importing the roles model
 db.userHasRole = require("./userhasrole")(sequelize, Sequelize); // importing the userHasRole model
+db.categories = require("./categories")(sequelize, Sequelize); // importing the category model
 
 module.exports = db; // exporting the db

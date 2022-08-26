@@ -4,7 +4,7 @@ const { commonCtrl } = require("../../controllers/index"); // importing the ctrl
 const auth = require("../../middlewares/auth-middleware"); // importing the auth middleware
 
 // post method for auth purpose
-routes.post("/auth", async (req, res) => {
+routes.post("/register", async (req, res) => {
 	const result = await commonCtrl.auth.signUp(req);
 	console.log({ result });
 	return res.status(result.status).json({ result });
