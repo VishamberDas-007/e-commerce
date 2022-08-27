@@ -17,9 +17,16 @@ routes.get("/edit/:id", async (req, res) => {
 	return res.status(result.status).json({ result });
 });
 
-// put mathod for updating category
+// put method for updating category
 routes.put("/update/:id", async (req, res) => {
 	const result = await adminCtrl.category.update(req);
+	console.log({ result });
+	return res.status(result.status).json({ result });
+});
+
+// delete method for deleting category
+routes.delete("/delete/:id", async (req, res) => {
+	const result = await adminCtrl.category.delete(req);
 	console.log({ result });
 	return res.status(result.status).json({ result });
 });

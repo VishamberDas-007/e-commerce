@@ -55,6 +55,8 @@ exports.edit = async (req, res) => {
 		if (!idPresent) {
 			return responses.notFound("Category not present!!");
 		}
+
+		// returning the success response
 		return responses.successResponse("Category found successfuly!!", idPresent);
 	} catch (error) {
 		// if any error then it will be caught in this block
@@ -71,7 +73,12 @@ exports.update = async (req, res) => {
 		const id = req.params.id;
 		const name = req.body.name;
 
-		// checking if the nam exist
+		// checking if id is passed in params
+		if (!id) {
+			return responses.notFound("Id not found!!");
+		}
+
+		// checking if the name exist
 		if (!name) {
 			return responses.notFound("Name not found!! Please enter name...");
 		}
@@ -85,17 +92,62 @@ exports.update = async (req, res) => {
 		if (!idPresent) {
 			return responses.notFound("Category not present!!");
 		}
+
+		// if idPresent then updating the name
 		await idPresent.update({
 			name: name,
 		});
+
+		// returning the success response
 		return responses.successResponse(
 			"Category updated successfully!!",
 			idPresent
 		);
 	} catch (error) {
+		// if any error then it will be caught in this block
 		return responses.errorResponse(
 			"Error occurred while updating category",
 			error
+		);
+	}
+};
+
+// deleting the category
+exports.delete = async (req, res) => {
+	try {
+		const id = req.params.id; // initializing the requested id for deletion
+
+		// checking if id is passed in params
+		if (!id) {
+			return responses.notFound("Id not found!!");
+		}
+
+		// checking if the id is present
+		const idPresent = await categoryModel.findOne({
+			where: {
+				id: id,
+			},
+		});
+		if (!idPresent) {
+			return responses.notFound("Category not present!!");
+		}
+
+		// deleting the category
+		const categoryDeleted = await categoryModel.destroy({
+			where: {
+				id: id,
+			},
+		});
+
+		// returning the success response
+		return responses.successResponse(
+			"Category deleted successfully",
+			categoryDeleted
+		);
+	} catch (error) {
+		// if any error then it will be caught in this block
+		return responses.errorResponse(
+			"Error occcurred while deleting the category"
 		);
 	}
 };
