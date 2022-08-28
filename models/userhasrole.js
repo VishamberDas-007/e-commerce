@@ -8,6 +8,12 @@ module.exports = (sequelize, DataTypes) => {
 				as: "roles",
 				foreignKey: "roleID",
 			});
+
+			// defining association with the user model
+			models.users.hasOne(userHasRole, {
+				as: "userHasRole",
+				foreignKey: "userID",
+			});
 		}
 	}
 	userHasRole.init(
