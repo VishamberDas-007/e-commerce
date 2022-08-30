@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
 		{
 			catID: DataTypes.INTEGER(11), // A foreign key from roles table
 			name: DataTypes.STRING(50), // The name of product to be listed in product table and will be unique
-			product_info: DataTypes.INTEGER(11), // Information about the product
+			product_info: DataTypes.STRING(255), // Information about the product
 			actual_price: DataTypes.INTEGER(11), // Actual price of product
 			selling_price: DataTypes.INTEGER(11), // Selling price of product
 			description: DataTypes.STRING(255), // Briefing about the product

@@ -151,3 +151,24 @@ exports.delete = async (req, res) => {
 		);
 	}
 };
+
+// listing all the categories
+
+exports.listing = async (req, res) => {
+	try {
+		const categoryListing = await categoryModel.findAll();
+		if (categoryListing == "") {
+			return responses.notFound("Categories not found");
+		}
+		return responses.successResponse(
+			"Categories found successfully",
+			categoryListing
+		);
+	} catch (error) {
+		// if any error then it will be caught in this block
+		return responses.errorResponse(
+			"Error occured while listing category",
+			error
+		);
+	}
+};

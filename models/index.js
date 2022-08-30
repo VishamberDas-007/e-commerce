@@ -42,5 +42,7 @@ db.users = require("./users")(sequelize, Sequelize); // importing the users mode
 db.roles = require("./roles")(sequelize, Sequelize); // importing the roles model
 db.userHasRole = require("./userhasrole")(sequelize, Sequelize); // importing the userHasRole model
 db.categories = require("./categories")(sequelize, Sequelize); // importing the category model
+db.products = require("./products")(sequelize, Sequelize); // importing the product model
+db.images = require("./images")(sequelize, Sequelize); // importing the image model
 
 module.exports = db; // exporting the db

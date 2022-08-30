@@ -8,4 +8,5 @@ exports.commonCtrl = {
 // admin ctrl
 exports.adminCtrl = {
 	category: require("./adminCtrl/categories"), // importing category file
+	product: require("./adminCtrl/products"), // importing product file
 };

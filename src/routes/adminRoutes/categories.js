@@ -31,4 +31,11 @@ routes.delete("/delete/:id", async (req, res) => {
 	return res.status(result.status).json({ result });
 });
 
+// listing method for listing category
+routes.get("/listing", async (req, res) => {
+	const result = await adminCtrl.category.listing(req);
+	console.log({ result });
+	return res.status(result.status).json({ result });
+});
+
 module.exports = routes; // exporting routes
