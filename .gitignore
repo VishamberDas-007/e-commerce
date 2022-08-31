@@ -4,3 +4,6 @@
 # ignoring package.json files
 /package-lock.json
 /package.json
+
+#ignoring the firewall json file
+/config/e-commerce.json
