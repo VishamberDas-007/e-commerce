@@ -42,3 +42,113 @@ exports.insert = async (req, res) => {
 		);
 	}
 };
+
+// creating the edit function for editing the product details
+exports.edit = async (req, res) => {
+	try {
+		// requesting and initializing the product id to be edited
+		const id = req.params.id;
+
+		// requesting the product details from the model
+		// check if product exists
+		const productExists = await productModel.findOne({
+			where: {
+				id: id,
+			},
+		});
+		if (!productExists) {
+			return responses.notFound("No such product found!!");
+		}
+
+		// returning the successs response
+		return responses.successResponse(
+			"Product found successfully",
+			productExists
+		);
+	} catch (error) {
+		// if any error then it will be caught in this block
+		return responses.errorResponse(
+			"Error occurred while editing the product",
+			error
+		);
+	}
+};
+
+// creating the update function for updating the product details
+exports.update = async (req, res) => {
+	try {
+		// requesting and initializing the product id to be updated
+		const id = req.params.id;
+
+		// requesting the product details to be updated
+
+		const productDetails = {
+			catID: req.body.catID,
+			name: req.body.name,
+			product_info: req.body.product_info,
+			actual_price: req.body.actual_price,
+			selling_price: req.body.selling_price,
+			description: req.body.description,
+		};
+
+		// check if category exists
+		// check if product exists
+		const productExists = await productModel.findOne({
+			where: {
+				id: id,
+				catID: productDetails.catID,
+			},
+		});
+		if (!productExists) {
+			return responses.notFound("No such product or category found!!");
+		}
+
+		//updating the product with the given productDetails
+		await productExists.update(productDetails);
+
+		// returning the successs response
+		return responses.successResponse(
+			"Product found successfully",
+			productExists
+		);
+	} catch (error) {
+		// if any error then it will be caught in this block
+		return responses.errorResponse(
+			"Error occurred while editing the product",
+			error
+		);
+	}
+};
+
+// creating the delete function for deleting the product details
+exports.delete = async (req, res) => {
+	try {
+		// requesting and initializing the product id to be deleted
+		const id = req.params.id;
+
+		// requesting the product details from the model
+		// check if product exists
+		const productExists = await productModel.findOne({
+			where: {
+				id: id,
+			},
+		});
+		if (!productExists) {
+			return responses.notFound("No such product found!!");
+		}
+
+		await productExists.destroy();
+
+		// returning the successs response
+		return responses.successResponse(
+			"Product deleted successfully",
+			productExists
+		);
+	} catch (error) {
+		// if any error then it will be caught in this block
+		return responses.errorResponse(
+			"Error occurred while deleting the product",
+			error
+		);
+	}
+};
