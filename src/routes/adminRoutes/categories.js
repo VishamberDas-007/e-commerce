@@ -2,16 +2,31 @@ const express = require("express"); // importing the express package
 const routes = express.Router(); // initializing the router function
 const { adminCtrl } = require("../../controllers/index"); // importing the admin ctrl
 const auth = require("../../middlewares/auth-middleware"); // importing the auth middleware
-
+const validation = require("../../validations/category");
+const { validationResult } = require("express-validator");
 // post method for inserting category
-routes.post("/insert", async (req, res) => {
+routes.post("/insert", validation.categoryInsertValidate, async (req, res) => {
+	//validation result
+	const errors = await validationResult(req);
+	if (!errors.isEmpty()) {
+		return res.json(errors);
+	}
+
+	// result from the controller
 	const result = await adminCtrl.category.insert(req);
 	console.log({ result });
 	return res.status(result.status).json({ result });
 });
 
 // get method for editing category
-routes.get("/edit/:id", async (req, res) => {
+routes.get("/edit/:id", validation.categoryIDValidate, async (req, res) => {
+	//validation result
+	const errors = await validationResult(req);
+	if (!errors.isEmpty()) {
+		return res.json(errors);
+	}
+
+	// result from the controller
 	const result = await adminCtrl.category.edit(req);
 	console.log({ result });
 	return res.status(result.status).json({ result });
@@ -25,11 +40,22 @@ routes.put("/update/:id", async (req, res) => {
 });
 
 // delete method for deleting category
-routes.delete("/delete/:id", async (req, res) => {
-	const result = await adminCtrl.category.delete(req);
-	console.log({ result });
-	return res.status(result.status).json({ result });
-});
+routes.delete(
+	"/delete/:id",
+	validation.categoryIDValidate,
+	async (req, res) => {
+		//validation result
+		const errors = await validationResult(req);
+		if (!errors.isEmpty()) {
+			return res.json(errors);
+		}
+
+		// result from controller
+		const result = await adminCtrl.category.delete(req);
+		console.log({ result });
+		return res.status(result.status).json({ result });
+	}
+);
 
 // listing method for listing category
 routes.get("/listing", async (req, res) => {
