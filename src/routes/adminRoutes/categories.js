@@ -64,4 +64,18 @@ routes.get("/listing", async (req, res) => {
 	return res.status(result.status).json({ result });
 });
 
+// put method for updating status of category
+routes.put("/status/:id", validation.categoryIDValidate, async (req, res) => {
+	//validation result
+	const errors = await validationResult(req);
+	if (!errors.isEmpty()) {
+		return res.json(errors);
+	}
+
+	// result from controller
+	const result = await adminCtrl.category.status(req);
+	console.log({ result });
+	return res.status(result.status).json({ result });
+});
+
 module.exports = routes; // exporting routes

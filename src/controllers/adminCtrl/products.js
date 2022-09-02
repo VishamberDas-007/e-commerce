@@ -152,3 +152,35 @@ exports.delete = async (req, res) => {
 		);
 	}
 };
+
+// creating a functio to update product status
+exports.status = async (req, res) => {
+	try {
+		const id = req.params.id; // initializing the requested id for updating status
+		var toUpdateStatus;
+		// checking if the id is present
+		const idPresent = await productModel.findOne({
+			where: {
+				id: id,
+			},
+		});
+
+		//returning the resposne when not found
+		if (!idPresent) {
+			return responses.notFound("No such Product found !!");
+		}
+
+		//checking the current status and updating it
+		if (idPresent.dataValues.status == "Active") toUpdateStatus = "Inactive";
+		else if (idPresent.dataValues.status == "Inactive")
+			toUpdateStatus = "Active";
+
+		//updating the status if id is present
+		await idPresent.update({
+			status: toUpdateStatus,
+		});
+		return responses.successResponse("Found", idPresent);
+	} catch (error) {
+		return responses.errorResponse("Error occurred while updating status");
+	}
+};

@@ -31,4 +31,11 @@ routes.delete("/delete/:id", async (req, res) => {
 	return res.status(result.status).json({ result });
 });
 
+// put method for updating status of product
+routes.put("/status/:id", async (req, res) => {
+	const result = await adminCtrl.product.status(req);
+	console.log({ result });
+	return res.status(result.status).json({ result });
+});
+
 module.exports = routes; // exporting routes
