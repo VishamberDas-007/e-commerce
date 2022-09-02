@@ -7,3 +7,6 @@
 
 #ignoring the firewall json file
 /config/e-commerce.json
+
+#ignoring the intellicode
+/.vscode
