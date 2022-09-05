@@ -43,29 +43,29 @@ exports.insert = async (req, res) => {
 };
 
 // creating edit category function
-exports.edit = async (req, res) => {
-	try {
-		id = req.params.id;
-		// checking if the id is present
-		const idPresent = await categoryModel.findOne({
-			where: {
-				id: id,
-			},
-		});
-		if (!idPresent) {
-			return responses.notFound("Category not present!!");
-		}
+// exports.edit = async (req, res) => {
+// 	try {
+// 		id = req.params.id;
+// 		// checking if the id is present
+// 		const idPresent = await categoryModel.findOne({
+// 			where: {
+// 				id: id,
+// 			},
+// 		});
+// 		if (!idPresent) {
+// 			return responses.notFound("Category not present!!");
+// 		}
 
-		// returning the success response
-		return responses.successResponse("Category found successfuly!!", idPresent);
-	} catch (error) {
-		// if any error then it will be caught in this block
-		return responses.errorResponse(
-			"Error occurred while editing category",
-			error
-		);
-	}
-};
+// 		// returning the success response
+// 		return responses.successResponse("Category found successfuly!!", idPresent);
+// 	} catch (error) {
+// 		// if any error then it will be caught in this block
+// 		return responses.errorResponse(
+// 			"Error occurred while editing category",
+// 			error
+// 		);
+// 	}
+// };
 
 // updating the category
 exports.update = async (req, res) => {
@@ -153,12 +153,24 @@ exports.delete = async (req, res) => {
 };
 
 // listing all the categories
-
 exports.listing = async (req, res) => {
 	try {
-		const categoryListing = await categoryModel.findAll();
+		const id = req.query.id;
+		console.log({ id });
+		var whereClause, categoryListing;
+		if (id) {
+			whereClause = {
+				id: id,
+			};
+			categoryListing = await categoryModel.findAll({
+				where: whereClause,
+			});
+		} else {
+			categoryListing = await categoryModel.findAll();
+		}
+		console.log({ categoryListing });
 		if (categoryListing == "") {
-			return responses.notFound("Categories not found");
+			return responses.notFound("No category present");
 		}
 		return responses.successResponse(
 			"Categories found successfully",
@@ -174,7 +186,6 @@ exports.listing = async (req, res) => {
 };
 
 // updating status of the category
-
 exports.status = async (req, res) => {
 	try {
 		const id = req.params.id; // initializing the requested id for updating status

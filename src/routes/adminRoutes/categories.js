@@ -19,7 +19,7 @@ routes.post("/insert", validation.categoryInsertValidate, async (req, res) => {
 });
 
 // get method for editing category
-routes.get("/edit/:id", validation.categoryIDValidate, async (req, res) => {
+routes.get("/edit", validation.categoryIDValidate, async (req, res) => {
 	//validation result
 	const errors = await validationResult(req);
 	if (!errors.isEmpty()) {
@@ -27,7 +27,7 @@ routes.get("/edit/:id", validation.categoryIDValidate, async (req, res) => {
 	}
 
 	// result from the controller
-	const result = await adminCtrl.category.edit(req);
+	const result = await adminCtrl.category.listing(req);
 	console.log({ result });
 	return res.status(result.status).json({ result });
 });

@@ -1,16 +1,23 @@
-const { body, param } = require("express-validator");
+const { check, body } = require("express-validator");
 
 // validation of category insertion
 const categoryInsertValidate = [
-	//checking if the name field is empty
-	body("name").not().isEmpty().withMessage({
-		message: "Name not entered",
-	}),
+	// checking if the name field is empty and contains alphabets
+	body("name")
+		.not()
+		.isEmpty()
+		.withMessage({
+			message: "Name not entered",
+		})
+		.isAlpha()
+		.withMessage({
+			message: "Name should contain alphabets",
+		}),
 ];
 
 // validate if id is present in the params
 const categoryIDValidate = [
-	param("id").notEmpty().isNumeric().withMessage({
+	check("id").notEmpty().withMessage({
 		message: "Please enter id",
 	}),
 ];
