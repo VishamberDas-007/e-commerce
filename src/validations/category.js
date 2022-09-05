@@ -17,9 +17,15 @@ const categoryInsertValidate = [
 
 // validate if id is present in the params
 const categoryIDValidate = [
-	check("id").notEmpty().withMessage({
-		message: "Please enter id",
-	}),
+	check("id")
+		.notEmpty()
+		.withMessage({
+			message: "Please enter id",
+		})
+		.isNumeric()
+		.withMessage({
+			message: "Id entered should be numeric",
+		}),
 ];
 
 module.exports = { categoryInsertValidate, categoryIDValidate };
