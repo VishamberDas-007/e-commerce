@@ -5,6 +5,9 @@ const config = require("./config/config.json"); // importing config
 expressApp.use(bodyParser.json()); // parses the json format
 expressApp.use(bodyParser.urlencoded({ extended: true })); // enhances to get the urlencoded requests
 const db = require("./models/index"); // importing the db from models
+const helmet = require("helmet"); // for securing expressApp
+
+expressApp.use(helmet());
 
 //routes
 expressApp.use("/api", require("./src/routes/index"));
