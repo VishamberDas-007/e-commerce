@@ -25,6 +25,15 @@ exports.insert = async (req, res) => {
 		if (!categoryExists) {
 			return responses.notFound("No such category found!!");
 		}
+		// check if the product name already exists
+		const productExists = await productModel.findOne({
+			where: {
+				name: productDetails.name,
+			},
+		});
+		if (productExists) {
+			return responses.alreadyExists("Product already present");
+		}
 
 		// adding the model
 		const addProduct = await productModel.create(productDetails);

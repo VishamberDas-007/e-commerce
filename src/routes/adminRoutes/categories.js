@@ -33,7 +33,7 @@ routes.get("/edit", validation.categoryIDValidate, async (req, res) => {
 });
 
 // put method for updating category
-routes.put("/update/:id", async (req, res) => {
+routes.put("/update/:id", validation.categoryUpdate, async (req, res) => {
 	const result = await adminCtrl.category.update(req);
 	console.log({ result });
 	return res.status(result.status).json({ result });

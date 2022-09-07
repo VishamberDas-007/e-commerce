@@ -11,7 +11,7 @@ const categoryInsertValidate = [
 		})
 		.isAlpha()
 		.withMessage({
-			message: "Name should contain alphabets",
+			message: "Input format not suppported",
 		}),
 ];
 
@@ -24,8 +24,30 @@ const categoryIDValidate = [
 		})
 		.isNumeric()
 		.withMessage({
-			message: "Id entered should be numeric",
+			message: "Input format not suppported",
 		}),
 ];
 
-module.exports = { categoryInsertValidate, categoryIDValidate };
+const categoryUpdate = [
+	check("id")
+		.notEmpty()
+		.withMessage({
+			message: "Please enter id",
+		})
+		.isNumeric()
+		.withMessage({
+			message: "Input format not suppported",
+		}),
+	body("name")
+		.not()
+		.isEmpty()
+		.withMessage({
+			message: "Name not entered",
+		})
+		.isAlpha()
+		.withMessage({
+			message: "Input format not suppported",
+		}),
+];
+
+module.exports = { categoryInsertValidate, categoryIDValidate, categoryUpdate };

@@ -2,9 +2,18 @@ const express = require("express"); // importing the express package
 const routes = express.Router(); // initializing the router function
 const { adminCtrl } = require("../../controllers/index"); // importing the admin ctrl
 const auth = require("../../middlewares/auth-middleware"); // importing the auth middleware
+const { validationResult } = require("express-validator");
+const validation = require("../../validations/product"); // importing the validation for validating purpose
 
 // post method for inserting product
-routes.post("/insert", async (req, res) => {
+routes.post("/insert", validation.productInsertValidate, async (req, res) => {
+	//validation result
+	const errors = await validationResult(req);
+	if (!errors.isEmpty()) {
+		return res.json(errors);
+	}
+
+	// result from controller
 	const result = await adminCtrl.product.insert(req);
 	console.log({ result });
 	return res.status(result.status).json({ result });
