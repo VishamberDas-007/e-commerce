@@ -15,7 +15,7 @@ module.exports = {
 				allowNull: false,
 				references: {
 					model: "products",
-					id: "id",
+					key: "id",
 				},
 			},
 			image_url: {
