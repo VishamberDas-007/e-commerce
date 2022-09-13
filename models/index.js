@@ -30,12 +30,6 @@ fs.readdirSync(__dirname)
 		db[model.name] = model;
 	});
 
-Object.keys(db).forEach((modelName) => {
-	if (db[modelName].associate) {
-		db[modelName].associate(db);
-	}
-});
-
 db.sequelize = sequelize; // initializing the constant possessing configuration setup
 db.Sequelize = Sequelize; // initializing the imported sequelize
 db.users = require("./users")(sequelize, Sequelize); // importing the users model
@@ -45,4 +39,32 @@ db.categories = require("./categories")(sequelize, Sequelize); // importing the 
 db.products = require("./products")(sequelize, Sequelize); // importing the product model
 db.images = require("./images")(sequelize, Sequelize); // importing the image model
 
+// defining the relations between models
+//  userHasRole - roles relationship
+db.userHasRole.belongsTo(db.roles, {
+	// as: "roles",
+	foreignKey: "roleID",
+	targetKey: "id",
+});
+
+// users - userHasRole relationship
+db.users.hasOne(db.userHasRole, {
+	// as: "userHasRole",
+	foreignKey: "userID",
+	sourceKey: "id",
+});
+
+// category - product relationship
+db.categories.hasMany(db.products, {
+	// as: "products",
+	foreignKey: "prodID",
+	sourceKey: "id",
+});
+
+// product - category relationship
+db.products.belongsTo(db.categories, {
+	// as: "categories",
+	foreignKey: "catID",
+	targetKey: "id",
+});
 module.exports = db; // exporting the db
