@@ -4,16 +4,6 @@ module.exports = (sequelize, DataTypes) => {
 	class userHasRole extends Model {
 		static associate(models) {
 			// defining association with role model
-			userHasRole.belongsTo(models.roles, {
-				as: "roles",
-				foreignKey: "roleID",
-			});
-
-			// defining association with the user model
-			models.users.hasOne(userHasRole, {
-				as: "userHasRole",
-				foreignKey: "userID",
-			});
 		}
 	}
 	userHasRole.init(
