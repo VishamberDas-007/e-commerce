@@ -4,9 +4,9 @@ module.exports = (sequelize, DataTypes) => {
 	class images extends Model {
 		static associate(models) {
 			// defining the association here
-			models.products.hasMany(images, {
-				as: "images",
-			});
+			// models.products.hasMany(images, {
+			// 	as: "images",
+			// });
 		}
 	}
 	images.init(

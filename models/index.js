@@ -67,4 +67,11 @@ db.products.belongsTo(db.categories, {
 	foreignKey: "catID",
 	targetKey: "id",
 });
+
+// product - images relationship
+db.images.belongsTo(db.products, {
+	foreignKey: "prod_ID",
+	sourceKey: "id",
+});
+
 module.exports = db; // exporting the db
